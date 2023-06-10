@@ -139,12 +139,12 @@ int main() {
     
     int colwidth = 15;
     
-    cout << setfill('-') << setw(5 * colwidth) << "-" << endl;
+    cout << setfill('-') << setw(7 * colwidth) << "-" << endl;
     cout << setfill(' ') << fixed;
     
-    cout << "Intervals" << setw(colwidth) << "ni" << setw(colwidth) << "fr%" << setw(colwidth) << "Ni" << setw(colwidth) << "Fr%" << endl;
+    cout << "Intervals" << setw(colwidth) << "xi" << setw(colwidth)<< "ni" << setw(colwidth) << "fr%" << setw(colwidth) << "Ni" << setw(colwidth) << "Fr%" << endl;
     
-    cout << setfill('-') << setw(5 * colwidth) << "-" << endl;
+    cout << setfill('-') << setw(7 * colwidth) << "-" << endl;
     cout << setfill(' ') << fixed;
     
     string stringInterval[intervals.size()];
@@ -156,7 +156,8 @@ int main() {
         unsigned long int sizeDif = stringInterval[i].length() - stringInterval[0].size();
         
         cout << setprecision(2) << "[" << limits[i] - amplitude << "; " << limits[i] << ")" << setw((colwidth - 5) - int(sizeDif))
-                                << absoluteFrequency[i] << setw(colwidth - 1)
+                                << ((limits[i] - amplitude) + limits[i]) / 2 << setw(colwidth - 1)
+                                << absoluteFrequency[i] << setw(colwidth)
                                 << relativeFrequency[i] << "%" << setw(colwidth)
                                 << accumulatedAbsoluteFrequency[i] << setw(colwidth - 1)
                                 << accumulatedRelativeFrquency[i] << "%" << endl;
