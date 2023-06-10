@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int Partition(vector<int> &v, int start, int end){
+int Partition(vector<float> &v, int start, int end){
     int pivot = end;
     int j = start;
     for(int i = start; i < end; ++i){
@@ -19,7 +19,7 @@ int Partition(vector<int> &v, int start, int end){
     
 }
 
-void Quicksort(vector<int> &v, int start, int end){
+void Quicksort(vector<float> &v, int start, int end){
     if(start < end){
         int p = Partition(v, start, end);
         
@@ -29,12 +29,12 @@ void Quicksort(vector<int> &v, int start, int end){
 }
 
 
-vector<vector<int>> organizeInIntervals(vector<int> v, int start, int end, vector<int>* intervalLimits, int* amp) {
-    int range             = v[end] - v[start];
-    int numberOfIntervals = 2 + int(3.322 * log10(v.size()));
-    int amplitude         = 1 + int(range / numberOfIntervals);
+vector<vector<float>> organizeInIntervals(vector<float> v, int start, int end, vector<float>* intervalLimits, float* amp) {
+    float range             = v[end] - v[start];
+    float numberOfIntervals = 2 + int(3.322 * log10(v.size()));
+    float amplitude         = 1 + int(range / numberOfIntervals);
     
-    vector<int> limits;
+    vector<float> limits;
     
     for(int i = 0; i < numberOfIntervals; i++) {
         if(limits.empty()) {
@@ -45,13 +45,15 @@ vector<vector<int>> organizeInIntervals(vector<int> v, int start, int end, vecto
         }
     }
     
-    vector<vector<int>> vOfIntervals;
-    vector<int>::iterator ptr = v.begin();
+    vector<vector<float>> vOfIntervals;
+    vector<float>::iterator ptr = v.begin();
+    
+    vector<string> _intervalLimits;
     
     int limitCounter = 0;
     int counter = 0;
     for(int i = 0; i < numberOfIntervals; i++) {
-        vOfIntervals.push_back(vector<int>());
+        vOfIntervals.push_back(vector<float>());
         
         for(int j = 0; ptr != v.end(); j++) {
             ptr++;
@@ -72,7 +74,7 @@ vector<vector<int>> organizeInIntervals(vector<int> v, int start, int end, vecto
 }
 
 
-void PrintVector(vector<int> v){
+void PrintVector(vector<float> v){
     for(int i = 0; i < v.size(); ++i)
         cout<<v[i]<<" ";
     cout<<"\n\n";
@@ -86,7 +88,7 @@ void PrintVector(vector<int> v){
 int main() {
     system("clear");
     
-    int amplitude;
+    float amplitude;
 
     int n = 0;
     cout << "Enter the number of elements you array will have: ";
@@ -94,7 +96,7 @@ int main() {
 
     cout << "\n";
 
-    vector<int> v;
+    vector<float> v;
 
     cout << "Enter the elements of the array (separated by a space): " << endl;
 
@@ -111,12 +113,12 @@ int main() {
     cout << "Sorted Array: " << endl;
     PrintVector(v);
     
-    vector<int> limits;
-    vector<vector<int>> intervals = organizeInIntervals(v, 0, int(v.size() - 1), &limits, &amplitude);
+    vector<float> limits;
+    vector<vector<float>> intervals = organizeInIntervals(v, 0, int(v.size() - 1), &limits, &amplitude);
     
     float classMarks[intervals.size()];
     unsigned long int absoluteFrequency[intervals.size()];
-    double relativeFrequency[intervals.size()];
+    float relativeFrequency[intervals.size()];
     unsigned long int accumulatedAbsoluteFrequency[intervals.size()];
     float accumulatedRelativeFrquency[intervals.size()];
     
@@ -135,12 +137,28 @@ int main() {
         accumulatedRelativeFrquency[i] = (double(accumulatedAbsoluteFrequency[i]) / n) * 100.0;
     }
     
-    cout << left << setw(15) << "Intervals" << left << setw(10) << "ni" << left << setw(10)<< "fr%" << left << setw(10) << "Ni" << left << setw(10) << "Fr%" << endl;
+    int colwidth = 15;
     
-    std::cout << std::fixed;
-    std::cout << std::setprecision(2);
+    cout << setfill('-') << setw(5 * colwidth) << "-" << endl;
+    cout << setfill(' ') << fixed;
+    
+    cout << "Intervals" << setw(colwidth) << "ni" << setw(colwidth) << "fr%" << setw(colwidth) << "Ni" << setw(colwidth) << "Fr%" << endl;
+    
+    cout << setfill('-') << setw(5 * colwidth) << "-" << endl;
+    cout << setfill(' ') << fixed;
+    
+    string stringInterval[intervals.size()];
+    for(int i = 0; i < intervals.size(); i++) {
+        stringInterval[i] = "[" + to_string(limits[i] - amplitude) + "; " + to_string(limits[i]) + ")";
+    }
     
     for(int i = 0; i < intervals.size(); i++) {
-        cout << "[" << limits[i] - amplitude << "; " << limits[i] << left << setw(6) << ")" << left << setw(10) << absoluteFrequency[i] << relativeFrequency[i] << left << setw(6) << "%" << left << setw(10) << accumulatedAbsoluteFrequency[i] << accumulatedRelativeFrquency[i] << "%" << endl;
+        unsigned long int sizeDif = stringInterval[i].length() - stringInterval[0].size();
+        
+        cout << setprecision(2) << "[" << limits[i] - amplitude << "; " << limits[i] << ")" << setw((colwidth - 5) - int(sizeDif))
+                                << absoluteFrequency[i] << setw(colwidth - 1)
+                                << relativeFrequency[i] << "%" << setw(colwidth)
+                                << accumulatedAbsoluteFrequency[i] << setw(colwidth - 1)
+                                << accumulatedRelativeFrquency[i] << "%" << endl;
     }
 }
