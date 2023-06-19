@@ -116,6 +116,8 @@ int main() {
     vector<float> limits;
     vector<vector<float>> intervals = organizeInIntervals(v, 0, int(v.size() - 1), &limits, &amplitude);
     
+    cout << "This is a test change" << endl;
+    
     float classMarks[intervals.size()];
     unsigned long int absoluteFrequency[intervals.size()];
     float relativeFrequency[intervals.size()];
