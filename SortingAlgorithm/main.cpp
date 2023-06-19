@@ -162,6 +162,4 @@ int main() {
                                 << accumulatedAbsoluteFrequency[i] << setw(colwidth - 1)
                                 << accumulatedRelativeFrquency[i] << "%" << endl;
     }
-    
-    cout << "More tests" << endl;
 }
