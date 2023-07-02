@@ -19,7 +19,15 @@ Download the zip file and follow the instructions:
 
 Just double click the executable, and a terminal window should appear:
 
+![alt text](https://github.com/esMatthew/FrequencyTable/blob/main/Images/HowToUse_3.png)
 
+Then, you should input the amount of numbers that your array will have, and lastly all of the elements to organize.
+
+![alt text](https://github.com/esMatthew/FrequencyTable/blob/main/Images/HowToUse_2.png)
+
+Finally, just hit enter and let the magic happen.
+
+![alt text](https://github.com/esMatthew/FrequencyTable/blob/main/Images/HowToUse_1.png)
 
 ### **Warning: The executable file currently only works on mac. If you want to use it, copy the code and compile it in your own machine**
 
